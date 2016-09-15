@@ -11,27 +11,31 @@
 
 void Main()
 {
-	Task<string> responseHtmlTask ;
+	Task<string> responseHtmlTask;
 	string url = string.Empty;
 	try
-	{	
+	{
+		/*
 		url = "http://www.google.com";
 		Task<string> response = DownloadFileFromUrlAsync(url);
-		Console.WriteLine(response.Result);		
+		Console.WriteLine(response.Result);
 
 		url = "http://www.google.com";
 		string response2 = DownloadFileFromUrlUsingTaskRun(url);
 		Console.WriteLine(response2);
+		*/
 
 		url = "http://www.ernieboy.coms";
 		responseHtmlTask = DownloadFileFromUrlAsync2(url);
 		Console.WriteLine(responseHtmlTask.Result);
 	}
-	catch (Exception ex)
-	{
-		string error = BuildExceptionDetail(ex,new StringBuilder()).ToString();
+	catch (AggregateException ex)
+	{		
+			var flattened = ex.Flatten().InnerExceptions;
+		Console.WriteLine($"Inner exceptions count = {ex.InnerExceptions.Count}");
+		string error = BuildExceptionDetail(ex, new StringBuilder()).ToString();
 		Console.WriteLine(error);
-	}	
+	}
 }
 
 // Define other methods and classes here
