@@ -8,9 +8,10 @@ void Main()
 	bool myExpressionResult = myExpression.Compile().Invoke(3, 5);
 	Console.WriteLine($"myExpression invocation = {myExpressionResult}");
 
+	Console.WriteLine("Now executing action lambda...");
+	ExecuteActionLambda();
 
-	Action<IEnumerable<string>, int, bool> myAction = (s, i, f) => { foreach (string item in s) Console.WriteLine(item);};
-	myAction.Invoke(new List<string> {"hello", "world"}, 3,false); 
+	
 
 	Console.WriteLine($"BuildAndInvokeBasicExpression invocation = {BuildAndInvokeBasicExpression(10, 21)}");
 }
@@ -30,4 +31,13 @@ public static int BuildAndInvokeBasicExpression(int firstArg, int secondArg)
 	Func<int> compiled = Expression.Lambda<Func<int>>(add).Compile();
 	int result = compiled.Invoke();
 	return result;
+}
+
+public static void ExecuteActionLambda()
+{
+	Action<IEnumerable<string>, int, bool> myAction = (s, i, f) => 
+	{ 
+		foreach (string item in s) Console.WriteLine(item); 
+	};
+	myAction.Invoke(new List<string> { "hello", "world" }, 3, false);
 }
