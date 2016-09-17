@@ -1,5 +1,8 @@
 <Query Kind="Program" />
 
+
+//Notes to myself: A plain delegate can be Invok()ed but an Expression<TDelegate> has to be Compile()'d, then Invoke()d.
+
 void Main()
 {
 	Func<int> myFunc = () => 10;
