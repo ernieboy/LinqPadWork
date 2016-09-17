@@ -5,7 +5,10 @@
 
 void Main()
 {
-	Func<int> myFunc = () => 10;
+	Expression<Func<string, string, bool>> expression = (s1, s2) =>  true;
+	
+	Map(expression);
+	
 	Expression<Func<int, int, bool>> myExpression = (first, second) => (first + second > 100);
 
 	bool myExpressionResult = myExpression.Compile().Invoke(3, 5);
@@ -14,16 +17,23 @@ void Main()
 	Console.WriteLine("Now executing action lambda...");
 	ExecuteActionLambda();
 
-	
-
 	Console.WriteLine($"BuildAndInvokeBasicExpression invocation = {BuildAndInvokeBasicExpression(10, 21)}");
+	
+	Ignore(x => "hello");
+		
 }
 
 // Define other methods and classes here
 
-public static void DoSomething(Expression<Func<int, bool>> expression)
+public static void Ignore(Expression<Func<string,string>> expression)
 {
-	
+	var value = expression.Body;
+
+}
+
+public static void Map(Expression<Func<string, string, bool>> expression)
+{
+	var parameters = expression.Parameters;
 }
 
 public static int BuildAndInvokeBasicExpression(int firstArg, int secondArg)
